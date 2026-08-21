@@ -1,0 +1,19 @@
+{
+  "name": "架构闪卡 · Architecture Flashcards",
+  "short_name": "架构闪卡",
+  "description": "入门到中级的软件架构学习闪卡，支持本地进度与离线使用。",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0c0b10",
+  "theme_color": "#15131d",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
