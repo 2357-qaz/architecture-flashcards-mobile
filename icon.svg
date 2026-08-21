@@ -1,12 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="架构闪卡图标">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <defs>
-    <linearGradient id="g" x1="92" y1="64" x2="426" y2="448" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#9B8CFF"/>
-      <stop offset="1" stop-color="#62D5AE"/>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#fbf6e7"/>
+      <stop offset="100%" stop-color="#f1e0a9"/>
+    </linearGradient>
+    <linearGradient id="paper" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#fffdf7"/>
+      <stop offset="100%" stop-color="#fff5df"/>
     </linearGradient>
   </defs>
-  <rect width="512" height="512" rx="116" fill="#15131d"/>
-  <path d="M132 156c0-26 21-47 47-47h154c26 0 47 21 47 47v200c0 26-21 47-47 47H179c-26 0-47-21-47-47V156Z" fill="url(#g)" opacity=".95"/>
-  <path d="M176 178h160M176 222h160M176 266h116" stroke="#fff" stroke-width="22" stroke-linecap="round" opacity=".9"/>
-  <path d="M336 320 384 368 448 288" fill="none" stroke="#62D5AE" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <rect x="116" y="94" width="280" height="324" rx="40" fill="url(#paper)" stroke="#d8bd73" stroke-width="10"/>
+  <path d="M164 173h180M164 223h180M164 273h122" stroke="#ccb06a" stroke-width="18" stroke-linecap="round" opacity=".88"/>
+  <path d="M303 324l26 26 55-69" stroke="#8d7340" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <rect x="216" y="76" width="80" height="34" rx="16" fill="#d8bd73"/>
 </svg>
