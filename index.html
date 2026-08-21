@@ -15,48 +15,16 @@
 </head>
 <body>
   <div class="app-shell">
-    <header class="hero">
-      <div>
+    <header class="compact-header">
+      <div class="brand-block">
         <p class="eyebrow">Architecture Deck</p>
         <h1>架构闪卡</h1>
-        <p class="subtitle">入门到中级：边界、DDD、微服务、分布式、缓存、可观测性。</p>
       </div>
-      <button class="ghost-button" id="resetBtn" title="清空本机学习进度">重置</button>
+      <div class="header-actions">
+        <span class="due-badge">待复习 <strong id="dueCount">0</strong></span>
+        <button class="icon-button" id="toolsBtn" type="button" aria-label="打开学习设置" aria-haspopup="dialog">设置</button>
+      </div>
     </header>
-
-    <section class="stats-grid" aria-label="学习统计">
-      <div class="stat-card">
-        <span class="stat-label">今日待复习</span>
-        <strong id="dueCount">0</strong>
-      </div>
-      <div class="stat-card">
-        <span class="stat-label">已掌握</span>
-        <strong id="masteredCount">0</strong>
-      </div>
-      <div class="stat-card">
-        <span class="stat-label">正确率</span>
-        <strong id="accuracy">0%</strong>
-      </div>
-    </section>
-
-    <section class="controls" aria-label="筛选题卡">
-      <label>
-        <span>分类</span>
-        <select id="categorySelect"></select>
-      </label>
-      <label>
-        <span>模式</span>
-        <select id="modeSelect">
-          <option value="due">今日待复习</option>
-          <option value="all">全部题卡</option>
-          <option value="hard">薄弱题卡</option>
-        </select>
-      </label>
-      <label class="search-field">
-        <span>搜索</span>
-        <input id="searchInput" type="search" placeholder="比如：CAP、缓存、DDD" autocomplete="off" />
-      </label>
-    </section>
 
     <main class="study-panel">
       <div class="progress-row">
@@ -70,42 +38,114 @@
           <span class="category-chip" id="categoryChip">架构基础</span>
           <span id="boxChip" class="box-chip">Box 1</span>
         </div>
-        <p class="question-label">Question</p>
-        <h2 id="questionText">加载中……</h2>
-        <div class="answer-block" id="answerBlock" hidden>
-          <p class="answer-label">Answer</p>
-          <p id="answerText"></p>
-          <p class="note" id="noteText"></p>
+
+        <div class="card-content">
+          <p class="question-label">Question</p>
+          <h2 id="questionText">加载中……</h2>
+          <div class="answer-block" id="answerBlock" hidden>
+            <p class="answer-label">Answer</p>
+            <p id="answerText"></p>
+            <p class="note" id="noteText"></p>
+          </div>
         </div>
+
         <p class="tap-hint" id="tapHint">轻点卡片显示答案；答案出现后左右滑动也可以评分。</p>
       </article>
 
-      <div class="actions">
+      <div class="actions" aria-label="闪卡操作">
         <button class="secondary-action" id="missedBtn">× 没记住</button>
         <button class="primary-action" id="revealBtn">显示答案</button>
         <button class="success-action" id="gotBtn">✓ 记住了</button>
       </div>
-
-      <div class="utility-row">
-        <button id="exportBtn">导出进度</button>
-        <button id="importBtn">导入进度</button>
-        <input id="importFile" type="file" accept="application/json" hidden />
-      </div>
     </main>
-
-    <section class="mini-guide">
-      <h3>复习逻辑</h3>
-      <p>答对会把卡片推到更远的复习箱，答错会回到 Box 1。这个版本用的是简化 Leitner 间隔，不装神弄鬼，不假装自己是神经科学实验室。</p>
-    </section>
   </div>
 
-  <template id="emptyTemplate">
-    <div class="empty-state">
-      <h2>这组卡片暂时清空了</h2>
-      <p>可以切到“全部题卡”，或者换个分类继续刷。真正的架构学习就是这样：卡片清了，债还在。</p>
+  <dialog id="toolsDialog" class="tools-dialog" aria-labelledby="toolsTitle">
+    <div class="dialog-sheet">
+      <header class="dialog-header">
+        <div>
+          <p class="eyebrow">Study Tools</p>
+          <h2 id="toolsTitle">学习设置</h2>
+        </div>
+        <button class="dialog-close" id="closeToolsBtn" type="button">完成</button>
+      </header>
+
+      <div class="dialog-scroll">
+        <section class="stats-grid" aria-label="学习统计">
+          <div class="stat-card">
+            <span class="stat-label">已掌握</span>
+            <strong id="masteredCount">0</strong>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">正确率</span>
+            <strong id="accuracy">0%</strong>
+          </div>
+        </section>
+
+        <section class="settings-section" aria-labelledby="filterTitle">
+          <h3 id="filterTitle">题卡范围</h3>
+          <div class="controls" aria-label="筛选题卡">
+            <label>
+              <span>分类</span>
+              <select id="categorySelect"></select>
+            </label>
+            <label>
+              <span>模式</span>
+              <select id="modeSelect">
+                <option value="due">今日待复习</option>
+                <option value="all">全部题卡</option>
+                <option value="hard">薄弱题卡</option>
+              </select>
+            </label>
+            <label class="search-field">
+              <span>搜索</span>
+              <input id="searchInput" type="search" placeholder="比如：CAP、缓存、DDD" autocomplete="off" />
+            </label>
+          </div>
+        </section>
+
+        <section class="settings-section" aria-labelledby="dataTitle">
+          <h3 id="dataTitle">学习数据</h3>
+          <div class="utility-row">
+            <button id="exportBtn">导出进度</button>
+            <button id="importBtn">导入进度</button>
+            <input id="importFile" type="file" accept="application/json" hidden />
+          </div>
+        </section>
+
+        <section class="settings-section mini-guide" aria-labelledby="guideTitle">
+          <h3 id="guideTitle">复习逻辑</h3>
+          <p>答对会把卡片推到更远的复习箱，答错会回到 Box 1。当前使用简化 Leitner 间隔，主界面只保留与当前记忆动作直接相关的信息。</p>
+        </section>
+
+        <section class="settings-section danger-zone" aria-labelledby="resetTitle">
+          <div>
+            <h3 id="resetTitle">重置学习记录</h3>
+            <p>清除本机保存的答题进度，不会删除题库。</p>
+          </div>
+          <button class="reset-button" id="resetBtn" type="button">重置进度</button>
+        </section>
+      </div>
     </div>
-  </template>
+  </dialog>
 
   <script src="app.js"></script>
+  <script>
+    (() => {
+      const dialog = document.getElementById('toolsDialog');
+      const openButton = document.getElementById('toolsBtn');
+      const closeButton = document.getElementById('closeToolsBtn');
+
+      openButton.addEventListener('click', () => {
+        if (!dialog.open) dialog.showModal();
+      });
+
+      closeButton.addEventListener('click', () => dialog.close());
+
+      dialog.addEventListener('click', (event) => {
+        if (event.target === dialog) dialog.close();
+      });
+    })();
+  </script>
 </body>
 </html>
