@@ -1,145 +1,111 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#15131d">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="架构闪卡">
-  <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="icon.svg">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f4eedc" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="架构闪卡" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="icon.svg" />
+  <link rel="stylesheet" href="styles.css" />
   <title>架构闪卡 · Architecture Flashcards</title>
-  <style>
-    :root{--bg:#0c0b10;--panel:#17151f;--panel2:#24212d;--card:#302d38;--text:#f7f1ff;--muted:#aaa0b8;--line:rgba(255,255,255,.11);--accent:#8d7aff;--good:#7bdcb5;--bad:#ff8c9a;--shadow:0 24px 70px rgba(0,0,0,.38)}
-    *{box-sizing:border-box} html{height:100%;background:var(--bg)} body{min-height:100%;margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",system-ui,sans-serif;background:radial-gradient(circle at top,#242034 0,#0c0b10 46%,#07060a 100%);color:var(--text)}
-    button,input,select{font:inherit} button{border:0;cursor:pointer} .app{width:min(720px,100%);min-height:100vh;margin:0 auto;padding:calc(18px + env(safe-area-inset-top)) 16px calc(28px + env(safe-area-inset-bottom))}
-    .hero{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin:10px 0 18px}.eyebrow{margin:0 0 8px;color:var(--accent);font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}.hero h1{font-size:34px;line-height:1.02;margin:0 0 8px}.subtitle{margin:0;color:var(--muted);line-height:1.5}.ghost{background:rgba(255,255,255,.08);color:var(--text);border:1px solid var(--line);border-radius:999px;padding:10px 13px;white-space:nowrap}
-    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}.stat{background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.04));border:1px solid var(--line);border-radius:20px;padding:13px 12px}.stat span{display:block;color:var(--muted);font-size:12px}.stat b{display:block;font-size:24px;margin-top:4px}
-    .controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 12px}.controls label{display:flex;flex-direction:column;gap:6px;color:var(--muted);font-size:12px}.controls .search{grid-column:1/-1}.controls select,.controls input{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:14px;color:var(--text);padding:12px 12px;outline:none}.controls input:focus,.controls select:focus{border-color:rgba(141,122,255,.7)}
-    .study{background:rgba(23,21,31,.82);border:1px solid var(--line);border-radius:30px;padding:18px;box-shadow:var(--shadow);backdrop-filter:blur(18px)}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.position{color:var(--muted);font-size:13px}.pill{border:1px solid var(--line);border-radius:999px;padding:6px 10px;color:#e7ddff;background:rgba(141,122,255,.16);font-size:12px}.bar{height:8px;background:rgba(255,255,255,.09);border-radius:999px;overflow:hidden;margin:12px 0 18px}.bar>div{height:100%;width:0;background:linear-gradient(90deg,#8d7aff,#7bdcb5);border-radius:999px;transition:.25s ease}
-    .card{min-height:360px;background:linear-gradient(160deg,rgba(255,255,255,.1),rgba(255,255,255,.035));border:1px solid var(--line);border-radius:26px;padding:22px;display:flex;flex-direction:column;transition:.18s ease;user-select:none;touch-action:pan-y}.card:active{transform:scale(.99)}.card.revealed{background:linear-gradient(160deg,rgba(141,122,255,.16),rgba(255,255,255,.045))}.topline{display:flex;justify-content:space-between;gap:10px;margin-bottom:18px}.chip{border-radius:999px;padding:7px 10px;font-size:12px;font-weight:800;background:rgba(255,255,255,.08);color:#ddd5eb}.box{color:var(--good)}.label{margin:0 0 8px;color:var(--accent);font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}.question{font-size:28px;line-height:1.16;margin:0 0 18px}.answer{border-top:1px solid var(--line);padding-top:16px;margin-top:4px}.answer p{font-size:17px;line-height:1.65;margin:0 0 12px}.note{color:var(--muted);font-size:14px!important}.hint{margin:auto 0 0;color:var(--muted);font-size:13px;line-height:1.5}.card.swipe-right{box-shadow:0 0 0 3px rgba(123,220,181,.35)}.card.swipe-left{box-shadow:0 0 0 3px rgba(255,140,154,.35)}
-    .actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:14px}.actions button,.utility button{border-radius:18px;padding:14px 10px;color:var(--text);font-weight:800;background:var(--panel2)}.actions button:disabled{opacity:.42}.primary{background:linear-gradient(135deg,#8d7aff,#6b5bf0)!important}.good{background:linear-gradient(135deg,#58bf9d,#369a83)!important}.bad{background:rgba(255,140,154,.18)!important;color:#ffd4da!important}.utility{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.utility button{background:rgba(255,255,255,.07);border:1px solid var(--line);color:var(--muted)}
-    .guide{margin:14px 0 0;background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:24px;padding:16px;color:var(--muted);line-height:1.6}.guide h3{margin:0 0 6px;color:var(--text)}.guide p{margin:0}.footer{margin:18px 4px 0;color:rgba(255,255,255,.38);font-size:12px;line-height:1.5;text-align:center}
-    @media(max-width:430px){.app{padding-left:12px;padding-right:12px}.hero h1{font-size:31px}.study{border-radius:26px;padding:14px}.card{min-height:350px;border-radius:24px;padding:18px}.question{font-size:25px}.actions button{padding:13px 6px;font-size:14px}.stats{gap:8px}.stat{padding:11px 9px}.stat b{font-size:22px}}
-  </style>
 </head>
 <body>
-  <div class="app">
+  <div class="app-shell">
     <header class="hero">
-      <div><p class="eyebrow">Architecture Deck</p><h1>架构闪卡</h1><p class="subtitle">入门到中级：分层、DDD、微服务、分布式、缓存、消息、可用性、可观测性、安全。</p></div>
-      <button class="ghost" id="resetBtn">重置</button>
+      <div>
+        <p class="eyebrow">Architecture Deck</p>
+        <h1>架构闪卡</h1>
+        <p class="subtitle">入门到中级：边界、DDD、微服务、分布式、缓存、可观测性。</p>
+      </div>
+      <button class="ghost-button" id="resetBtn" title="清空本机学习进度">重置</button>
     </header>
-    <section class="stats" aria-label="学习统计"><div class="stat"><span>今日待复习</span><b id="dueCount">0</b></div><div class="stat"><span>已掌握</span><b id="masteredCount">0</b></div><div class="stat"><span>正确率</span><b id="accuracy">0%</b></div></section>
-    <section class="controls"><label>分类<select id="categorySelect"></select></label><label>模式<select id="modeSelect"><option value="due">今日待复习</option><option value="all">全部题卡</option><option value="hard">薄弱题卡</option></select></label><label class="search">搜索<input id="searchInput" type="search" placeholder="比如 CAP、缓存、DDD、Saga" autocomplete="off"></label></section>
-    <main class="study">
-      <div class="row"><span class="position" id="cardPosition">Card 0 of 0</span><span class="pill" id="difficultyPill">入门</span></div><div class="bar"><div id="progressFill"></div></div>
-      <article class="card" id="flashcard" tabindex="0" aria-live="polite"><div class="topline"><span class="chip" id="categoryChip">架构基础</span><span class="chip box" id="boxChip">Box 1</span></div><p class="label">Question</p><h2 class="question" id="questionText">加载中……</h2><div class="answer" id="answerBlock" hidden><p class="label">Answer</p><p id="answerText"></p><p class="note" id="noteText"></p></div><p class="hint" id="tapHint">轻点卡片显示答案；答案出现后左右滑动也可以评分。</p></article>
-      <div class="actions"><button class="bad" id="missedBtn">× 没记住</button><button class="primary" id="revealBtn">显示答案</button><button class="good" id="gotBtn">✓ 记住了</button></div>
-      <div class="utility"><button id="exportBtn">导出进度</button><button id="importBtn">导入进度</button><input id="importFile" type="file" accept="application/json" hidden></div>
+
+    <section class="stats-grid" aria-label="学习统计">
+      <div class="stat-card">
+        <span class="stat-label">今日待复习</span>
+        <strong id="dueCount">0</strong>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">已掌握</span>
+        <strong id="masteredCount">0</strong>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">正确率</span>
+        <strong id="accuracy">0%</strong>
+      </div>
+    </section>
+
+    <section class="controls" aria-label="筛选题卡">
+      <label>
+        <span>分类</span>
+        <select id="categorySelect"></select>
+      </label>
+      <label>
+        <span>模式</span>
+        <select id="modeSelect">
+          <option value="due">今日待复习</option>
+          <option value="all">全部题卡</option>
+          <option value="hard">薄弱题卡</option>
+        </select>
+      </label>
+      <label class="search-field">
+        <span>搜索</span>
+        <input id="searchInput" type="search" placeholder="比如：CAP、缓存、DDD" autocomplete="off" />
+      </label>
+    </section>
+
+    <main class="study-panel">
+      <div class="progress-row">
+        <span id="cardPosition">Card 0 of 0</span>
+        <span class="pill" id="difficultyPill">入门</span>
+      </div>
+      <div class="progress-track" aria-hidden="true"><div id="progressFill"></div></div>
+
+      <article class="flashcard" id="flashcard" tabindex="0" aria-live="polite">
+        <div class="card-topline">
+          <span class="category-chip" id="categoryChip">架构基础</span>
+          <span id="boxChip" class="box-chip">Box 1</span>
+        </div>
+        <p class="question-label">Question</p>
+        <h2 id="questionText">加载中……</h2>
+        <div class="answer-block" id="answerBlock" hidden>
+          <p class="answer-label">Answer</p>
+          <p id="answerText"></p>
+          <p class="note" id="noteText"></p>
+        </div>
+        <p class="tap-hint" id="tapHint">轻点卡片显示答案；答案出现后左右滑动也可以评分。</p>
+      </article>
+
+      <div class="actions">
+        <button class="secondary-action" id="missedBtn">× 没记住</button>
+        <button class="primary-action" id="revealBtn">显示答案</button>
+        <button class="success-action" id="gotBtn">✓ 记住了</button>
+      </div>
+
+      <div class="utility-row">
+        <button id="exportBtn">导出进度</button>
+        <button id="importBtn">导入进度</button>
+        <input id="importFile" type="file" accept="application/json" hidden />
+      </div>
     </main>
-    <section class="guide"><h3>复习逻辑</h3><p>答对进入更高 Box，下一次复习更远；答错回到 Box 1。它不是完整 FSRS，但足够做架构入门到中级的第一轮知识债务管理。</p></section>
-    <p class="footer">本应用只把进度保存在本机浏览器 localStorage；不上传题目和学习记录。</p>
+
+    <section class="mini-guide">
+      <h3>复习逻辑</h3>
+      <p>答对会把卡片推到更远的复习箱，答错会回到 Box 1。这个版本用的是简化 Leitner 间隔，不装神弄鬼，不假装自己是神经科学实验室。</p>
+    </section>
   </div>
-<script>
-'use strict';
-const RAW=[
-['架构基础','入门','什么是软件架构？','软件架构是系统的高层结构：模块如何拆分、职责如何分配、组件如何通信，以及这些选择如何支撑性能、可维护性、安全性、可扩展性等质量目标。','架构不是画几张盒子图；图只是表达，决策和取舍才是本体。'],
-['架构基础','入门','架构和详细设计的区别是什么？','架构关注影响面大、难以逆转的结构性决策；详细设计关注局部实现。是否拆微服务通常是架构决策，某个方法名通常是详细设计。','边界不是绝对的，判断标准是影响范围、变更成本和风险。'],
-['架构基础','入门','什么是质量属性？','质量属性是系统好不好用、扛不扛得住、好不好改的衡量维度，例如可用性、性能、可扩展性、安全性、可维护性、可测试性、可观测性。','不要只说优雅。优雅如果不能落到质量属性，经常只是审美摸鱼。'],
-['架构基础','入门','高内聚、低耦合是什么意思？','高内聚是一个模块内部职责集中，低耦合是模块之间依赖少、变更互相影响小。二者共同降低理解、测试和修改成本。','不是依赖越少越好，而是不该知道的别知道。'],
-['架构基础','入门','组件和连接器分别是什么？','组件是承担职责的计算单元，如服务、模块、数据库；连接器是组件之间交互的机制，如 HTTP、RPC、消息队列、事件流、共享数据库。','很多问题不是组件选错，而是连接方式选错。'],
-['架构基础','入门','什么是 ADR？','ADR 是 Architecture Decision Record，轻量记录架构决策的背景、备选方案、决策结果、取舍理由和后果。','ADR 的价值是防止团队失忆，不是给架构师戴高帽。'],
-['架构基础','入门','C4 模型的四层视图是什么？','C4 常用 Context、Container、Component、Code 四层描述系统：从系统外部关系，到容器级部署单元，再到组件结构，最后到代码细节。','面向不同读者给不同粒度的图，不要拿类图折磨老板。'],
-['架构基础','中级','为什么架构决策常常是 trade-off？','质量属性会互相牵制。强一致可能牺牲可用性和延迟；高度抽象可能提升扩展性但增加复杂度；微服务可能提升自治但增加分布式成本。','没有免费午餐，只有把账单藏到别的地方。'],
-['分层与边界','入门','经典分层架构通常分哪几层？','常见分法是表现层、应用层、领域或业务层、基础设施或数据访问层。表现层处理交互，应用层编排用例，领域层承载核心规则，基础设施层处理数据库和外部服务。','分层的核心是依赖方向和职责边界，不是文件夹命名仪式。'],
-['分层与边界','入门','分层架构最大的好处是什么？','它把不同变化原因隔离开：UI 改动不应迫使业务规则重写，数据库替换也不应污染核心业务逻辑。','分层不是为了显得高级，是为了让系统别像一锅粥。'],
-['分层与边界','中级','依赖倒置原则在架构中是什么意思？','高层策略不应该依赖低层实现，二者都依赖抽象。例如领域逻辑依赖 Repository 接口，而不是直接依赖某个 ORM 或数据库驱动。','这不是到处撒接口，而是保护核心规则免受基础设施污染。'],
-['分层与边界','中级','六边形架构的核心思想是什么？','把应用核心放在中心，通过端口定义与外界交互的边界，再由适配器连接数据库、HTTP、消息队列、第三方 API 等外部世界。','重点不是六边形，而是核心和外部世界的隔离。'],
-['分层与边界','中级','Clean Architecture 的依赖规则是什么？','依赖只能从外层指向内层。实体和用例处于内层，框架、数据库、UI 属于外层，内层不应知道外层实现。','目的不是宗教洁癖，而是让核心业务能脱离框架生存。'],
-['分层与边界','入门','MVC、MVP、MVVM 主要解决什么问题？','它们都试图把界面展示、用户交互和业务状态分开，降低 UI 逻辑与业务逻辑的耦合。','前端架构第一原则：别让按钮点击事件里长出企业帝国。'],
-['分层与边界','中级','什么是模块化单体？','模块化单体是在一个部署单元内保持清晰模块边界的单体系统。它不承担分布式复杂度，但通过模块隔离保留未来拆分能力。','很多早期项目真正需要的是模块化单体，不是开局微服务祭天。'],
-['分层与边界','入门','为什么单体架构不等于坏架构？','单体部署简单、调试容易、事务边界清晰、运维成本低。只有团队规模、部署节奏或扩展需求真的要求拆分时，才需要更复杂架构。','单体不是原罪，泥球才是。微服务也能变成分布式泥球。'],
-['DDD','入门','DDD 是什么？','领域驱动设计是一套围绕业务领域建模的软件设计方法，强调用业务语言理解问题，把核心复杂度放在领域模型和边界设计上。','DDD 不是把所有类命名成 Entity、Aggregate、DomainService 的 cosplay。'],
-['DDD','入门','什么是通用语言？','通用语言是业务人员和开发人员共同使用的一套精确词汇。代码、文档、讨论尽量使用同一套业务概念，减少翻译误差。','业务说订单，代码说 TradeRecord，数据库叫 biz_txn，迟早要祭天。'],
-['DDD','中级','什么是限界上下文？','限界上下文是一个模型适用的明确边界。同一个词在不同上下文可以有不同含义，例如客户在营销、计费、客服系统中可能完全不同。','限界上下文是微服务拆分的重要参考，但不是一一等同。'],
-['DDD','入门','实体和值对象的区别是什么？','实体有连续身份，属性变化后仍是同一个对象；值对象没有独立身份，只由属性值定义，通常应设计为不可变。','能用值对象就别硬造实体，身份是复杂度入口。'],
-['DDD','中级','什么是聚合？','聚合是一组强一致性维护的领域对象集合，对外通过聚合根访问。它定义事务一致性边界，保护内部不变量。','聚合不是对象树越大越好，边界过大会拖垮并发和性能。'],
-['DDD','中级','应用服务和领域服务有什么区别？','应用服务负责编排用例、事务、权限和外部调用，通常不放核心规则；领域服务承载无法自然归属到某个实体或值对象的领域逻辑。','应用服务像导演，领域服务像规则专家，导演不要亲自改世界观。'],
-['DDD','中级','Repository 模式的作用是什么？','Repository 用集合式接口隐藏持久化细节，让领域层通过抽象读取和保存聚合，而不是直接操作 SQL、ORM 或远程存储。','Repository 不是给每张表生成一个 CRUD 机器。'],
-['DDD','中级','贫血模型和充血模型的区别是什么？','贫血模型把对象当数据容器，业务逻辑放在服务里；充血模型把相关行为放回领域对象。复杂业务中充血模型更能保护概念边界。','业务简单时贫血模型可能够用，关键看复杂度，不要为模式而模式。'],
-['微服务','入门','什么是微服务架构？','微服务把系统拆成一组围绕业务能力组织的小服务，每个服务可独立开发、部署、扩展，并通过网络 API 或消息协作。','小不是按代码行数算，而是按业务职责和变更边界算。'],
-['微服务','入门','微服务最核心的收益是什么？','核心收益通常是团队自治、独立部署、按业务能力扩展、故障隔离和技术栈局部选择。它不是自动提升性能的仙丹。','微服务解决组织和演进问题更多，解决代码审美问题更少。'],
-['微服务','中级','为什么每个服务拥有自己的数据库很重要？','如果多个服务共享同一个数据库并直接读写彼此表，服务边界会被数据库耦合击穿，独立部署和自治会变成幻觉。','共享数据库是分布式单体的温床。'],
-['微服务','中级','什么是分布式单体？','分布式单体看似拆成多个服务，但服务之间强耦合、必须一起发布、共享数据库或同步链路过长，最终同时拥有单体和分布式系统的缺点。','双倍苦难：部署像微服务，痛苦像泥球。'],
-['微服务','入门','API Gateway 的作用是什么？','API Gateway 是客户端进入后端服务的统一入口，常处理路由、认证、限流、协议转换、响应聚合和灰度发布等横切能力。','Gateway 不应塞满业务逻辑，否则它会进化成新的巨型单体。'],
-['微服务','中级','BFF 是什么？','BFF 是 Backend for Frontend，为特定前端或终端定制后端层，比如 Web BFF、iOS BFF。它聚合和裁剪后端能力，减少前端直接适配复杂服务。','端差异明显时有用；端很少时别为了缩写硬加层。'],
-['微服务','中级','服务发现解决什么问题？','服务发现让调用方知道目标服务实例在哪里。实例可能动态扩缩容、重启、迁移，调用方需要通过注册中心、DNS 或平台机制找到可用实例。','动态环境里，硬编码地址就像把航班时刻写进石碑。'],
-['微服务','中级','同步调用和异步消息各有什么取舍？','同步调用简单直观、容易拿到结果，但链路耦合强、延迟叠加、故障传播明显；异步消息能解耦和削峰，但引入最终一致性、重复消息、顺序和追踪难题。','异步不是不用负责，只是把麻烦换了个地方排队。'],
-['分布式','入门','分布式系统最难的根源是什么？','网络不可靠、延迟不可忽略、节点会失败、时钟不完全一致、消息可能重复或乱序。单机中很多默认成立的假设，在分布式里都会变成收费项目。','第一条铁律：网络不是内存调用。'],
-['分布式','中级','CAP 定理说的是什么？','在网络分区发生时，分布式系统无法同时保证强一致性和高可用性，只能在一致性 C 与可用性 A 之间取舍；分区容忍 P 通常必须面对。','CAP 不是说平时只能三选二，而是分区故障时的取舍。'],
-['分布式','中级','PACELC 比 CAP 多表达了什么？','PACELC 表示：如果发生分区 P，要在可用性 A 和一致性 C 之间取舍；否则 E，即正常情况下，也要在延迟 L 和一致性 C 之间取舍。','它提醒你：没故障时也在低延迟和强一致之间付账。'],
-['分布式','入门','什么是最终一致性？','最终一致性指系统允许短时间内不同副本或服务看到的数据不一致，但在没有新更新并经过传播后，最终会收敛到一致状态。','最终一致性不是最终不知道啥时候一致，需要补偿、监控和业务可接受边界。'],
-['分布式','中级','Saga 模式解决什么问题？','Saga 用一系列本地事务和补偿操作管理跨服务业务流程，避免使用昂贵且脆弱的分布式大事务，常见形式有编排式和协同式。','补偿不是万能撤销，现实业务总有边界条件。'],
-['分布式','中级','什么是幂等性？','幂等性指同一操作执行一次和执行多次的最终效果相同。它常用于处理重试、重复消息、网络超时后的不确定状态。','支付、下单、发券没有幂等设计，迟早会被重试机制教育。'],
-['分布式','入门','延迟和吞吐量有什么区别？','延迟是单个请求从发起到完成的时间；吞吐量是单位时间内系统处理的请求数量。低延迟不必然等于高吞吐。','性能优化先问指标，不要只喊快一点。'],
-['分布式','入门','水平扩展和垂直扩展分别是什么？','垂直扩展是增强单台机器资源，水平扩展是增加更多实例或节点。水平扩展更适合大规模和高可用，但需要无状态、分片或协调机制配合。','加机器不是魔法，状态和热点会追着你要债。'],
-['数据与缓存','入门','索引为什么能提升查询性能？','索引用额外数据结构加速定位数据，避免全表扫描。代价是占用存储、降低写入速度，并需要维护选择性和查询匹配。','索引不是越多越好，每个索引都在写入时收税。'],
-['数据与缓存','中级','数据库事务的 ACID 是什么？','ACID 指原子性、一致性、隔离性、持久性。它描述事务要么全部成功要么全部失败，保持约束，在并发下有隔离效果，提交后能持久保存。','隔离级别不同，脏读、不可重复读、幻读等现象处理也不同。'],
-['数据与缓存','中级','乐观锁和悲观锁的区别是什么？','悲观锁假设冲突常发生，先加锁再操作；乐观锁假设冲突较少，提交时通过版本号或条件更新检测冲突。','读多写少常考虑乐观锁，冲突频繁时悲观锁可能更稳定。'],
-['数据与缓存','中级','读写分离解决什么问题？','读写分离让主库承担写入，从库承担查询，提升读吞吐并隔离压力。代价是复制延迟和读到旧数据的风险。','读写分离不是免费的强一致扩容术。'],
-['数据与缓存','中级','分库分表的主要目的和代价是什么？','目的通常是突破单库单表容量、写入和查询瓶颈；代价是跨分片查询、事务、排序、分页、迁移和运维复杂度上升。','分片键选错，后面就像背着数据库去爬山。'],
-['数据与缓存','入门','缓存的主要价值是什么？','缓存把热点数据放到更快或更近的位置，降低延迟、减少后端负载、提升吞吐。常见缓存包括浏览器缓存、CDN、应用缓存、Redis 等。','缓存是性能工具，也是不一致性制造机。'],
-['数据与缓存','中级','缓存穿透、击穿、雪崩分别是什么？','穿透是查询不存在数据反复打到数据库；击穿是单个热点 key 过期导致大量请求打到后端；雪崩是大量 key 同时失效或缓存集群故障造成后端被压垮。','解决方案包括空值缓存、布隆过滤器、互斥重建、随机过期、限流和降级。'],
-['数据与缓存','中级','Cache Aside 模式是什么？','应用先读缓存，未命中则读数据库并回填缓存；写入时先更新数据库再删除或更新缓存。它简单常用，但要处理并发和不一致窗口。','删除缓存通常比更新缓存更不容易写错，但也不是无脑银弹。'],
-['消息与集成','入门','消息队列常用来做什么？','消息队列常用于异步解耦、削峰填谷、事件通知、任务分发和跨服务数据同步。','队列不是垃圾桶，失败处理和可观测性一个都不能少。'],
-['消息与集成','中级','消息至少一次、至多一次、恰好一次有什么区别？','至多一次可能丢但不重复；至少一次不丢但可能重复；恰好一次语义最理想，但实现成本高且通常依赖特定边界。','业务上更常见的做法是至少一次加幂等处理。'],
-['消息与集成','中级','死信队列有什么用？','死信队列存放多次消费失败、格式异常或超时无法处理的消息，便于排查、告警、人工修复或后续重放。','没有死信队列，失败消息就像掉进黑洞。'],
-['消息与集成','中级','事件驱动架构的优势是什么？','事件驱动架构通过发布和订阅事件解耦服务，使服务能独立响应业务变化，适合异步流程、审计轨迹和跨边界扩展。','事件名和事件语义不清，会让系统变成分布式猜谜。'],
-['消息与集成','中级','命令和事件有什么区别？','命令表达希望某事发生，通常有明确接收方；事件表达某事已经发生，通常可被多个订阅者消费。','把事件当命令用，会让发布方和订阅方重新耦合。'],
-['消息与集成','中级','Outbox 模式解决什么问题？','Outbox 模式把业务数据变更和待发布消息写入同一个本地事务，再由后台可靠发布消息，避免数据库已提交但消息没发出的不一致。','它用本地事务换取跨系统可靠性，是很实用的工程妥协。'],
-['消息与集成','中级','什么是反腐层？','反腐层用于隔离外部系统或旧系统的模型，把外部接口和概念转换成本系统内部模型，避免外部污染核心领域。','名字很凶，本质是翻译层和防火墙。'],
-['可靠性','入门','什么是高可用？','高可用是系统在故障下仍尽量保持服务能力，通常通过冗余、故障转移、限流、降级、隔离、自动恢复等方式实现。','可用性不是口号，必须对应 SLO、故障预算和恢复目标。'],
-['可靠性','中级','限流、熔断、降级分别是什么？','限流控制进入系统的请求量；熔断在下游持续失败时快速失败，避免故障扩散；降级在压力或故障下关闭非核心能力，保核心链路。','它们都是系统认怂的艺术，认得早就活得久。'],
-['可靠性','中级','超时和重试为什么必须成对设计？','没有超时，请求可能无限等待占满资源；没有控制的重试会放大流量并压垮下游。重试应配合退避、抖动、最大次数和幂等性。','重试不是祈祷机。'],
-['可靠性','中级','隔舱模式是什么？','隔舱模式把资源池、线程池、连接池或服务能力隔离开，避免某个依赖或业务故障耗尽全局资源，拖垮整个系统。','别让一个漏水舱室把整条船带走。'],
-['可观测性','入门','日志、指标、链路追踪分别关注什么？','日志关注离散事件和上下文；指标关注可聚合的数值趋势；链路追踪关注一次请求跨服务传播的完整路径。','三者互补，不是装一个日志库就叫可观测。'],
-['可观测性','中级','SLI、SLO、SLA 有什么区别？','SLI 是服务水平指标，如延迟和错误率；SLO 是内部目标，如 99.9% 请求成功；SLA 是对外承诺，通常伴随赔偿或合同责任。','先有测量，再有目标，最后才有承诺。别反着来。'],
-['可观测性','中级','为什么告警要避免噪音？','噪音告警会造成告警疲劳，使真正事故被忽视。好的告警应指向用户影响或明确行动，而不是把每个内部波动都叫醒人类。','人类运维不是无限电池。'],
-['安全','入门','认证和授权有什么区别？','认证确认你是谁，授权确认你能做什么。登录是认证，判断是否能访问某个资源或执行某个操作是授权。','把两者混在一起，权限漏洞就会像春天的野草。'],
-['安全','中级','最小权限原则是什么？','每个用户、服务、令牌或进程只获得完成任务所需的最小权限，并尽量限制作用范围和有效时间。','权限像盐，少了难受，多了要命。'],
-['安全','中级','输入校验和输出编码分别防什么？','输入校验限制进入系统的数据形状和范围；输出编码根据目标上下文安全展示数据，常用于防 XSS、注入和格式逃逸。','不要相信输入，也不要相信自己以后永远不会把它展示出来。'],
-['安全','中级','威胁建模的目的是什么？','威胁建模是在设计阶段识别资产、攻击者、入口、信任边界和潜在攻击路径，从而提前设计控制措施。','上线后再发现威胁，不叫建模，叫事故复盘。'],
-['工程演进','入门','什么是技术债？','技术债是为了短期交付做出的妥协在未来产生的维护、扩展和风险成本。它不是所有烂代码的高级称呼，而是有上下文的取舍账。','借债不可耻，装作不用还是比较可耻。'],
-['工程演进','中级','重构和重写有什么区别？','重构是在保持外部行为不变的前提下改善内部结构；重写是重新实现系统。重写风险更高，容易低估隐藏需求和边界条件。','重写像革命，听起来热血，账单经常没人敢看。'],
-['工程演进','中级','为什么架构要渐进式演化？','现实系统需求、团队和负载都会变化。渐进式演化通过模块化、抽象边界、兼容迁移和可回滚机制降低一次性大改的风险。','伟大架构很少从天而降，更多是从事故和约束里长出来的。']
-];
-const CARDS=RAW.map((r,i)=>({id:'arch-'+String(i+1).padStart(3,'0'),category:r[0],difficulty:r[1],q:r[2],a:r[3],note:r[4]}));
-const STORAGE_KEY='architecture_flashcards_progress_v2', SETTINGS_KEY='architecture_flashcards_settings_v2';
-const INTERVALS={1:10*60*1000,2:24*60*60*1000,3:3*24*60*60*1000,4:7*24*60*60*1000,5:14*24*60*60*1000};
-const $=id=>document.getElementById(id);
-const els={categorySelect:$('categorySelect'),modeSelect:$('modeSelect'),searchInput:$('searchInput'),dueCount:$('dueCount'),masteredCount:$('masteredCount'),accuracy:$('accuracy'),cardPosition:$('cardPosition'),difficultyPill:$('difficultyPill'),progressFill:$('progressFill'),flashcard:$('flashcard'),categoryChip:$('categoryChip'),boxChip:$('boxChip'),questionText:$('questionText'),answerBlock:$('answerBlock'),answerText:$('answerText'),noteText:$('noteText'),tapHint:$('tapHint'),revealBtn:$('revealBtn'),missedBtn:$('missedBtn'),gotBtn:$('gotBtn'),resetBtn:$('resetBtn'),exportBtn:$('exportBtn'),importBtn:$('importBtn'),importFile:$('importFile')};
-function load(key,fallback){try{const v=localStorage.getItem(key);return v?JSON.parse(v):fallback}catch{return fallback}}
-const state={progress:load(STORAGE_KEY,{}),settings:load(SETTINGS_KEY,{category:'all',mode:'due',search:''}),list:[],index:0,revealed:false,x:0,y:0};
-function saveProgress(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state.progress))}
-function saveSettings(){localStorage.setItem(SETTINGS_KEY,JSON.stringify(state.settings))}
-function prog(id){return state.progress[id]||(state.progress[id]={box:1,correct:0,missed:0,nextDue:0,lastSeen:null})}
-function norm(s){return String(s||'').toLowerCase().trim()}
-function due(card){return prog(card.id).nextDue<=Date.now()}
-function hard(card){const p=prog(card.id),t=p.correct+p.missed;return t>0&&(p.missed>=p.correct||p.box<=2)}
-function match(card,q){return !q||norm([card.q,card.a,card.note,card.category,card.difficulty].join(' ')).includes(q)}
-function init(){const cats=[...new Set(CARDS.map(c=>c.category))];els.categorySelect.innerHTML='<option value="all">全部分类</option>'+cats.map(c=>`<option value="${c}">${c}</option>`).join('');els.categorySelect.value=state.settings.category;els.modeSelect.value=state.settings.mode;els.searchInput.value=state.settings.search;rebuild(true)}
-function rebuild(reset){let list=CARDS.filter(c=>(state.settings.category==='all'||c.category===state.settings.category)&&match(c,norm(state.settings.search)));if(state.settings.mode==='due')list=list.filter(due);if(state.settings.mode==='hard')list=list.filter(hard);list.sort((a,b)=>prog(a.id).nextDue-prog(b.id).nextDue||prog(a.id).box-prog(b.id).box||CARDS.indexOf(a)-CARDS.indexOf(b));state.list=list;if(reset)state.index=0;if(state.index>=list.length)state.index=Math.max(0,list.length-1);state.revealed=false;render()}
-function stats(){let d=0,m=0,c=0,miss=0;for(const card of CARDS){const p=prog(card.id);if(p.nextDue<=Date.now())d++;if(p.box>=4)m++;c+=p.correct;miss+=p.missed}els.dueCount.textContent=d;els.masteredCount.textContent=m;els.accuracy.textContent=c+miss?Math.round(c/(c+miss)*100)+'%':'0%'}
-function render(){stats();const total=state.list.length,has=total>0;els.cardPosition.textContent=has?`Card ${state.index+1} of ${total}`:'Card 0 of 0';els.progressFill.style.width=has?Math.round((state.index+1)/total*100)+'%':'100%';els.missedBtn.disabled=!has||!state.revealed;els.gotBtn.disabled=!has||!state.revealed;els.revealBtn.disabled=!has||state.revealed;if(!has){els.flashcard.classList.remove('revealed');els.categoryChip.textContent='空空如也';els.boxChip.textContent='Box -';els.difficultyPill.textContent='完成';els.questionText.textContent='这组卡片暂时清空了';els.answerBlock.hidden=true;els.answerText.textContent='';els.noteText.textContent='';els.tapHint.textContent='可以切到全部题卡，或者换个分类继续刷。';return}const card=state.list[state.index],p=prog(card.id);els.flashcard.classList.toggle('revealed',state.revealed);els.categoryChip.textContent=card.category;els.boxChip.textContent='Box '+p.box;els.difficultyPill.textContent=card.difficulty;els.questionText.textContent=card.q;els.answerBlock.hidden=!state.revealed;els.answerText.textContent=card.a;els.noteText.textContent=card.note;els.tapHint.textContent=state.revealed?'向右滑=记住了，向左滑=没记住；也可以点下面按钮。':'轻点卡片显示答案；答案出现后左右滑动也可以评分。'}
-function reveal(){if(!state.list.length||state.revealed)return;state.revealed=true;render();vibe(8)}
-function rate(ok){if(!state.list.length||!state.revealed)return;const old=state.index,card=state.list[state.index],p=prog(card.id),now=Date.now();if(ok){p.correct++;p.box=Math.min(5,p.box+1)}else{p.missed++;p.box=1}p.lastSeen=now;p.nextDue=now+INTERVALS[p.box];saveProgress();vibe(ok?12:[20,30,20]);const id=card.id;rebuild(false);if(!state.list.length){render();return}if(state.settings.mode==='all'||state.settings.mode==='hard'){const i=state.list.findIndex(c=>c.id===id);state.index=i>=0?(i+1)%state.list.length:Math.min(old,state.list.length-1)}else state.index=Math.min(old,state.list.length-1);state.revealed=false;render()}
-function vibe(p){if('vibrate'in navigator)navigator.vibrate(p)}
-function swipe(dx,dy){if(!state.revealed||Math.abs(dx)<65||Math.abs(dx)<Math.abs(dy)*1.2)return;els.flashcard.classList.add(dx>0?'swipe-right':'swipe-left');setTimeout(()=>els.flashcard.classList.remove('swipe-right','swipe-left'),170);rate(dx>0)}
-function exportProgress(){const blob=new Blob([JSON.stringify({app:'architecture-flashcards',version:2,exportedAt:new Date().toISOString(),progress:state.progress},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='architecture-flashcards-progress-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url)}
-function importProgress(file){const r=new FileReader();r.onload=()=>{try{const payload=JSON.parse(String(r.result||'{}')),p=payload.progress||payload;if(!p||typeof p!=='object')throw new Error('bad');state.progress={...state.progress,...p};saveProgress();rebuild(true);alert('进度已导入。')}catch{alert('导入失败：这不像本应用导出的进度文件。')}finally{els.importFile.value=''}};r.readAsText(file)}
-els.categorySelect.addEventListener('change',()=>{state.settings.category=els.categorySelect.value;saveSettings();rebuild(true)});els.modeSelect.addEventListener('change',()=>{state.settings.mode=els.modeSelect.value;saveSettings();rebuild(true)});els.searchInput.addEventListener('input',()=>{state.settings.search=els.searchInput.value;saveSettings();rebuild(true)});els.flashcard.addEventListener('click',reveal);els.flashcard.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();reveal()}if(e.key==='ArrowRight')rate(true);if(e.key==='ArrowLeft')rate(false)});els.flashcard.addEventListener('touchstart',e=>{const t=e.changedTouches[0];state.x=t.clientX;state.y=t.clientY},{passive:true});els.flashcard.addEventListener('touchend',e=>{const t=e.changedTouches[0];swipe(t.clientX-state.x,t.clientY-state.y)},{passive:true});els.revealBtn.addEventListener('click',reveal);els.missedBtn.addEventListener('click',()=>rate(false));els.gotBtn.addEventListener('click',()=>rate(true));els.resetBtn.addEventListener('click',()=>{if(confirm('确定清空本机学习进度吗？题库不会删除。')){state.progress={};localStorage.removeItem(STORAGE_KEY);rebuild(true)}});els.exportBtn.addEventListener('click',exportProgress);els.importBtn.addEventListener('click',()=>els.importFile.click());els.importFile.addEventListener('change',()=>{const f=els.importFile.files&&els.importFile.files[0];if(f)importProgress(f)});if('serviceWorker'in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));init();
-</script>
+
+  <template id="emptyTemplate">
+    <div class="empty-state">
+      <h2>这组卡片暂时清空了</h2>
+      <p>可以切到“全部题卡”，或者换个分类继续刷。真正的架构学习就是这样：卡片清了，债还在。</p>
+    </div>
+  </template>
+
+  <script src="app.js"></script>
 </body>
 </html>
